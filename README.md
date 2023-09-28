@@ -12,6 +12,9 @@ schematic_template - A template for building schema migration repo base on schem
       - [Create your own script](#create-your-own-script)
     - [Create your stored procedure](#create-your-stored-procedure)
     - [Create you agent jobs](#create-you-agent-jobs)
+  - [Post steps](#post-steps)
+    - [Build your docker image](#build-your-docker-image)
+    - [Commit you code](#commit-you-code)
   - [Addition info](#addition-info)
 
 
@@ -98,11 +101,13 @@ file name has datetime prefix and sample.rb suffix like ``20230928024121_sample.
 make dst.sch.gen
 ```
 You should rename the script as you want; 
-For example, 
+For example, as below. make you file name meaningful
+```
   20230928024121_create_table_emp.rb
   20230928024121_emp_add_index_name_dept_id.rb
   20230928024121_emp_add_column_age.rb
   20230928024121_emp_rename_column_remark_to_detail.rb
+```
 
 For your testing purpose, you may need to create some source table for test.
 To generate the source template, type below command
@@ -112,7 +117,7 @@ make src.sch.gen
 sample migration script generated under the path ``src/db/migrations/src``
 
 #### Create your own script
-Migration script is ruby Sequel implementation, and below is a sample that create a ``job_logs`` table with a composite index
+Migration script is ruby Sequel implementation, and below is a sample that create a ``job_logs`` table with a composite index under particular db schema.
 ```ruby
 Sequel.migration do
   up do
@@ -129,7 +134,7 @@ Sequel.migration do
     end
   end
   down do
-    drop_table(:job_logs)
+    drop_table(dbschema(:job_logs))
   end
 end
 ```
@@ -280,6 +285,8 @@ INSERTRANDOMLOG_SCHEDULE_ACTIVE_START_TIME=131300
 INSERTRANDOMLOG_SCHEDULE_ACTIVE_END_TIME=235959
 ```
 
+**Note.**  ``You may rename the variable name in the job.env and job.yml; but they should be match``
+
 After created those job configuration, 
 If we have new jobs environment variables. The container need to be restart to get the new create environment variables, type ``exit`` to exit the container and type below to restart it.
 
@@ -297,6 +304,21 @@ execute the below to command to deploy jobs
 ``` shell
 make dst.job.deploy
 ```
+
+## Post steps
+### Build your docker image 
+Finally, confirm you new version by editing ``RELEASE`` file.
+Build you image and test agin.
+
+### Commit you code
+Remember to commit your code to ``GitOps``
+
+In VScode, 
+- click ``Source Control``
+- click ``+`` sign to Stage Change
+- type you Message and click ``Commit`` then ``Push`` you change
+
+---
 
 
 ## Addition info
