@@ -1,0 +1,2 @@
+DROP DATABASE cnfas2;
+GO

@@ -1,0 +1,3 @@
+#REPO_PATH=docker-repos:8123/chronos2/
+IMAGE := schematic_template
+TAG := 0.1.0

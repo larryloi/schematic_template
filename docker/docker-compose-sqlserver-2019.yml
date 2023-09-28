@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+  app:
+    image: "${IMAGE}:${TAG}"
+    env_file:
+      - .env
+      - combined.env
+    hostname: "${IMAGE}_app"
+    container_name: "${IMAGE}_app"
+    volumes:
+      - ../deploy/jobs:/app/deploy/jobs
+      - ../src:/app/src
+    stdin_open: true
+    tty: true
+    #depends_on:
+    #  - db
+    networks:
+      - integration
+    entrypoint: /bin/bash
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
+    hostname: "${DST_DB_HOST}"
+    user: root
+    container_name: db-sqlserver
+    networks:
+      - integration
+    restart: always
+    env_file:
+      - .env
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: Vg6gEcSGL7p8KbCN
+      MSSQL_DATA_DIR: /var/opt/sqlserver/data
+      MSSQL_LOG_DIR: /var/opt/sqlserver/log
+      MSSQL_BACKUP_DIR: /var/opt/sqlserver/backup
+      MSSQL_MEMORY_LIMIT_MB: 2048
+      MSSQL_AGENT_ENABLED: 1
+      #MSSQL_COLLATION: Latin1_General_CS_AS
+    ports:
+      - 1433:1433
+    volumes:
+      - ../src/mssql-init:/mssql-init
+      - sql-server-data:/var/opt/mssql/
+      - sqldata:/var/opt/sqlserver/data
+      - sqllog:/var/opt/sqlserver/log
+      - sqlbackup:/var/opt/sqlserver/backup  
+
+volumes:
+  sql-server-data:
+    driver: local
+  sqldata:
+  sqllog:
+  sqlbackup:
+
+networks:
+  integration:
+    external: true
+
+

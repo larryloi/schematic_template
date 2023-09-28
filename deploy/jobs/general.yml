@@ -1,0 +1,9 @@
+---
+  categroy_name: _Data_Maintenance
+  owner_login_name: schematic
+  database_name: schematic_test_dst
+  enabled: <%= ENV['JOB_ENABLED'] || "true" %>                                  # Indicates the status of the added job
+  notify_level_email: <%= ENV['JOB_NOTIFY_LEVEL_EMAIL'] || "false" %>           # 0: Never, 1: Onsuccess, 2: On failure, 3: Always
+  notify_level_netsend: <%= ENV['JOB_NOTIFY_LEVEL_NETSEND'] || "false" %>       # 0: Never, 1: Onsuccess, 2: On failure, 3: Always
+  notify_level_page: <%= ENV['JOB_NOTIFY_LEVEL_PAGE'] || "false" %>             # 0: Never, 1: Onsuccess, 2: On failure, 3: Always
+  delete_level: <%= ENV['JOB_DELETE_LEVEL'] || "false" %>
