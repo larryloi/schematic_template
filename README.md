@@ -22,6 +22,11 @@ git clone https://github.com/larryloi/schematic
 cd schematic/docker
 make build
 ```
+Or Use **VScode**,
+1. Open Remote Explorer and connect Remote Host
+2. Clone a remote Git Repository
+3. and run ``make build`` as above
+
 The docker image schematic should be built after finished above commands
 ```shell
 docker images
