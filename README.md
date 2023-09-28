@@ -49,6 +49,7 @@ git clone https://github.com/larryloi/schematic_template
 git clone <Your-Repo_URL>
 cd schematic_template 
 cp -rp * ../<Your-New-Repo-Name>
+cp .env ../<Your-New-Repo-Name>
 ```
 Current schematic_template repo URL is
 https://github.com/larryloi/schematic_template
