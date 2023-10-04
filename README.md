@@ -2,6 +2,7 @@
 schematic_template - A template for building schema migration repo base on schematic docker image
 
 - [schematic\_template](#schematic_template)
+  - [Before Your Development](#before-your-development)
   - [Prepare schematic base image](#prepare-schematic-base-image)
   - [Prepare your new repo](#prepare-your-new-repo)
       - [Browse from VS code](#browse-from-vs-code)
@@ -17,6 +18,11 @@ schematic_template - A template for building schema migration repo base on schem
     - [Commit you code](#commit-you-code)
   - [Addition info](#addition-info)
 
+## Before Your Development
+It is recommanded to set the default user to root for you WSL to prevent user permission issue while writing files within container. RUN the below in Windows ``CMD.exe``.
+```cmd
+ubuntu2204.exe config --default-user root
+```
 
 ## Prepare schematic base image
 ```shell
@@ -31,8 +37,11 @@ Or Use **VScode**,
 3. and run ``make build`` as above
 
 The docker image schematic should be built after finished above commands
+type ``docker images`` shows you the docker images you've just built.
 ```shell
 docker images
+REPOSITORY    TAG         IMAGE ID       CREATED         SIZE
+schematic     0.2.0       d47ae698c7fc   17 hours ago    406MB
 ```
 
 
@@ -68,6 +77,14 @@ Update ``IMAGE/TAG`` in RELEASE file
 cd docker
 make build
 ```
+> **_NOTE:_** If make command is not avaliable, please follow bellow to install
+
+```shell
+sudo apt update
+sudo apt install make
+```
+
+
 
 ## Development Start
 First of all
